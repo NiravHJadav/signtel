@@ -1,6 +1,8 @@
 
 import React, { PureComponent, useState } from 'react';
 import {
+  FlatList,
+  ListView,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -17,7 +19,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import FlipCard from '../components/Card/FlipCard';
+import FlipCard from '../components/Card';
 
 
 
@@ -26,27 +28,30 @@ export class Home extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      data : "hello"
+      data: "hellso",
+      cards: [0, 1, 2, 3, 4, 5]
     }
-    
+
+  }
+
+  renderCards = () => {
+    return (<FlipCard data={this.state.data}></FlipCard>);
   }
 
   render() {
     return (
-    <SafeAreaView >
-      <StatusBar />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-      >
-        <Header />
+      <SafeAreaView >
         <View>
 
+          <FlatList
+            data={this.state.cards}
+            renderItem={this.renderCards}  >
+          </FlatList>
 
-          <FlipCard data={this.state.data}></FlipCard>
 
         </View>
-      </ScrollView>
-    </SafeAreaView>
+
+      </SafeAreaView>
     )
   }
 };

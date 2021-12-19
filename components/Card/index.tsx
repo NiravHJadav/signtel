@@ -14,7 +14,7 @@ export default class FlipCard extends Component {
     return (
       <TouchableOpacity onPress={() => this.onPress()} style={{}}>
 
-<Card>
+<Card containerStyle={{padding: 0}} >
     <CardImage 
       source={{uri: 'http://bit.ly/2GfzooV'}} 
       title="Top 10 South African beaches"
@@ -22,20 +22,11 @@ export default class FlipCard extends Component {
     <CardTitle
       subtitle="Number 6"
     />
-    <CardContent text="Clifton, Western Cape" />
+    <CardContent text={this.props.data} />
     <CardAction 
       separator={true} 
       inColumn={false}>
-      <CardButton
-        onPress={() => {}}
-        title="Share"
-        color="#FEB557"
-      />
-      <CardButton
-        onPress={() => {}}
-        title="Explore"
-        color="#FEB557"
-      />
+    
     </CardAction>
   </Card>
 
