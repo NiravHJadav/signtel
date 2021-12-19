@@ -15,23 +15,50 @@ export class Home extends Component {
     super(props);
     this.state = {
       data: 'hello',
-      cards: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+      cards: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       cardStatus: [],
       step: 0,
+      lastSelected: 0,
+      randoms: [],
     };
 
     //const [cardStatus, setCardStatus] = useState([]);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.start();
   }
 
-  start =() => {
-    let details: { index: number; status: boolean; }[] = [];
+  shuffleArray = (array) => {
+    let i = array.length - 1;
+    for (; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array;
+  };
 
-    this.state.cards.forEach(element => {
-      details.push(this.getCardModel(element));
+  start = () => {
+    const min = 1;
+    const max = 100;
+    let tempList = [];
+    for  (i = 0; i < 6; i++) {
+      const rand = min + Math.random() * (max - min);
+      tempList.push(parseInt(rand, 10));
+    }
+    tempList.forEach(element => {
+      tempList.push(element);
+    });
+
+    let shuffled = this.shuffleArray(tempList);
+    console.log(shuffled);
+
+    let details: {index: number; status: boolean}[] = [];
+
+    this.state.cards.forEach((key, element) => {
+      details.push(this.getCardModel(element, shuffled[key]));
     });
 
     this.setState((state, props) => ({
@@ -39,39 +66,51 @@ export class Home extends Component {
     }));
 
     this.setState({
-      step: this.state.step+1,
+      // step: this.state.step+1,
       cardStatus: details,
     });
 
     console.log(details);
     console.log(this.state.cardStatus);
-  }
+  };
 
-  
-
-  getCardModel = (index: number) => {
+  getCardModel = (index: number, value: number) => {
     let carddata = {
       index: index,
       status: false,
+      value: value,
     };
     return carddata;
   };
 
   renderCards = (item, index: number) => {
-    return (<FlipCard cardStatus={this.state.cardStatus[index]} />);
+    return (
+      <FlipCard
+        handler={this.handleClick}
+        cardStatus={this.state.cardStatus[index]}
+      />
+    );
+  };
+
+  //Logic
+
+  handleClick = () => {
+    console.log('handleClick');
+
+    this.setState({
+      step: this.state.step + 1,
+    });
   };
 
   render() {
-    {this.start}
+    {
+      this.start;
+    ;}
     return (
       <View>
         <View style={[styles.header]}>
-          <Text style={styles.sectionTitle}>{this.state.step}</Text>
-          <Button
-             onPress={this.start}
-            title="Start"
-            color="#841584"
-          />
+          <Text style={styles.sectionTitle}> Steps : {this.state.step}</Text>
+          <Button onPress={this.start} title="Start" color="#841584" />
         </View>
         <SafeAreaView>
           <View>

@@ -15,9 +15,11 @@ export default class FlipCard extends Component {
   // }
   onPress() {
     //this.props.navigation.goBack();
+    console.log("printing");
+    this.props.handler();
   }
   render() {
-    console.log("enter" + this.props.cardStatus?.index);
+    //console.log("enter" + this.props.cardStatus?.index);
     return (
 
       <TouchableOpacity style={styles.container} onPress={() => this.onPress()} style={{}}>
@@ -25,7 +27,7 @@ export default class FlipCard extends Component {
           <CardImage
             style={styles.card_image}
             source={{uri: '../assets/solid.png'}}
-            title={this.props.cardStatus?.index}
+            title={this.props.cardStatus?.value}
           />
         </Card>
         </TouchableOpacity>
@@ -42,12 +44,12 @@ const styles = StyleSheet.create({
   },
   card_template:{
     width: 125,
-    height: 200,
+    height: 160,
     boxShadow: "10px 10px 10px -12px rgba(0,0,0,0.75)"
   },
   card_image: {
     width: 125,
-    height: 200,
+    height: 160,
     borderRadius : 10
   },
   text_container:{
