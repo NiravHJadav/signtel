@@ -20,8 +20,5 @@ export default StyleSheet.create({
     elevation:15,
   },
 
-  card: {
-    width : 50%,
-  }
 
 });

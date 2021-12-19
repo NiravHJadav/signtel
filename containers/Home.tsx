@@ -28,27 +28,30 @@ export class Home extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      data: "hellso",
-      cards: [0, 1, 2, 3, 4, 5]
+      data: "hello",
+      cards: [0, 1, 2, 3, 4, 5, 7 , 8 , 9 , 10 , 11 , 12 , 13 , 14 ,15]
     }
 
   }
 
-  renderCards = () => {
-    return (<FlipCard data={this.state.data}></FlipCard>);
+  renderCards = (item , index:number) => {
+
+   let carddata = {
+      "index" : index
+    }
+
+    return (<FlipCard data={carddata}></FlipCard>);
   }
 
   render() {
     return (
       <SafeAreaView >
         <View>
-
           <FlatList
             data={this.state.cards}
-            renderItem={this.renderCards}  >
+            renderItem={({item, index}) => this.renderCards(item, index)}
+            numColumns={3}  >
           </FlatList>
-
-
         </View>
 
       </SafeAreaView>
