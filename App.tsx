@@ -27,6 +27,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import FlipCard from './components/Card/FlipCard';
+import HomeScreen from './screens/Home/HomeScreen';
 
 const Section: React.FC<{
   title: string;
@@ -57,35 +58,10 @@ const Section: React.FC<{
 };
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
- const [data, setData] = useState("initialState");
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step Ones">
-            Edit <Text style={styles.highlight}>Apps.tsx</Text> to change this asdsad
-            asdsda adas sss
-          </Section>
-
-          <FlipCard data={data}></FlipCard>
-         
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <View>
+      <HomeScreen></HomeScreen>
+    </View>
   );
 };
 
