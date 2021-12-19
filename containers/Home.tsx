@@ -1,63 +1,91 @@
-
-import React, { PureComponent, useState } from 'react';
+import React, {Component, PureComponent, useState} from 'react';
 import {
+  Button,
   FlatList,
-  ListView,
   SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 import FlipCard from '../components/Card';
 
-
-
-export class Home extends PureComponent {
-
+export class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: "hello",
-      cards: [0, 1, 2, 3, 4, 5, 7 , 8 , 9 , 10 , 11 , 12 , 13 , 14 ,15]
-    }
+      data: 'hello',
+      cards: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+      cardStatus: [],
+      step: 0,
+    };
 
+    //const [cardStatus, setCardStatus] = useState([]);
   }
 
-  renderCards = (item , index:number) => {
-
-   let carddata = {
-      "index" : index
-    }
-
-    return (<FlipCard data={carddata}></FlipCard>);
+  componentDidMount(){
+    this.start();
   }
+
+  start =() => {
+    let details: { index: number; status: boolean; }[] = [];
+
+    this.state.cards.forEach(element => {
+      details.push(this.getCardModel(element));
+    });
+
+    this.setState((state, props) => ({
+      cardStatus: [...state.cardStatus, details],
+    }));
+
+    this.setState({
+      step: this.state.step+1,
+      cardStatus: details,
+    });
+
+    console.log(details);
+    console.log(this.state.cardStatus);
+  }
+
+  
+
+  getCardModel = (index: number) => {
+    let carddata = {
+      index: index,
+      status: false,
+    };
+    return carddata;
+  };
+
+  renderCards = (item, index: number) => {
+    return (<FlipCard cardStatus={this.state.cardStatus[index]} />);
+  };
 
   render() {
+    {this.start}
     return (
-      <SafeAreaView >
-        <View>
-          <FlatList
-            data={this.state.cards}
-            renderItem={({item, index}) => this.renderCards(item, index)}
-            numColumns={3}  >
-          </FlatList>
+      <View>
+        <View style={[styles.header]}>
+          <Text style={styles.sectionTitle}>{this.state.step}</Text>
+          <Button
+             onPress={this.start}
+            title="Start"
+            color="#841584"
+          />
         </View>
-
-      </SafeAreaView>
-    )
+        <SafeAreaView>
+          <View>
+            <FlatList
+              data={this.state.cards}
+              renderItem={({item, index}) => this.renderCards(item, index)}
+              numColumns={3}
+            />
+          </View>
+        </SafeAreaView>
+      </View>
+    );
   }
-};
+}
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -67,6 +95,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
+    padding: 10,
   },
   sectionDescription: {
     marginTop: 8,
@@ -75,5 +104,11 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: '700',
+  },
+  header: {
+    //flex: 1,
+    fontWeight: '700',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

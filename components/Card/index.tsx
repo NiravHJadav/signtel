@@ -5,27 +5,30 @@ import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 
 export default class FlipCard extends Component {
   constructor(props: any) {
     super(props);
-
+    this.state = {
+      cardStatus: props.cardStatus,
+    };
   }
+
+  // componentWillReceiveProps(nextProps) {
+  //   this.setState({ cardStatus: nextProps.cardStatus });
+  // }
   onPress() {
     //this.props.navigation.goBack();
   }
   render() {
+    console.log("enter" + this.props.cardStatus?.index);
     return (
-      
+
       <TouchableOpacity style={styles.container} onPress={() => this.onPress()} style={{}}>
-
         <Card  style={styles.card_template} containerStyle={{ padding: 0 }} >
-          <CardImage 
+          <CardImage
             style={styles.card_image}
-            source={{ uri: '../assets/solid.png' }}
-            title={this.props.data.index}
+            source={{uri: '../assets/solid.png'}}
+            title={this.props.cardStatus?.index}
           />
-
         </Card>
-
-
-      </TouchableOpacity>
+        </TouchableOpacity>
     );
   }
 }
@@ -59,7 +62,6 @@ const styles = StyleSheet.create({
   },
   card_title: {
      color: "white",
-
-  }
+    }
 });
 
