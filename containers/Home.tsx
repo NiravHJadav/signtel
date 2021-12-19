@@ -96,7 +96,6 @@ export class Home extends Component {
 
   handleClick = () => {
     console.log('handleClick');
-
     this.setState({
       step: this.state.step + 1,
     });
