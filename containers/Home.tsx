@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ToastAndroid,
 } from 'react-native';
 
 import FlipCard from '../components/Card';
@@ -117,9 +118,6 @@ export class Home extends Component {
         lastSelected: index,
       });
     } else {
-      // cardStatus[cardStatus.index].status = false;
-      console.log('insdie else');
-
       let previousValue = c[this.state.lastSelected].value;
       if (previousValue !== c[index].value) {
         c[index].status = false;
@@ -134,6 +132,23 @@ export class Home extends Component {
     this.setState({
       step: this.state.step + 1,
     });
+    let won = true;
+
+    this.state.cardStatus.forEach(element => {
+      if (!element.status) {
+        won = false;
+      }
+    });
+
+    if (won) {
+      ToastAndroid.showWithGravityAndOffset(
+        'Congratulations!!! you have won!',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+        25,
+        50,
+      );
+    }
   };
 
   render() {
