@@ -94,17 +94,48 @@ export class Home extends Component {
 
   //Logic
 
-  handleClick = () => {
+  handleClick = (index : number) => {
     console.log('handleClick');
+
+    let c = this.state.cardStatus;
+    c[index].status = true;
+    this.setState({
+      cardStatus: c,
+    });
+
+    if ((this.state.step + 1) % 2 !== 0){
+      console.log('inside if');
+  
+      this.setState({
+        lastSelected : index,
+      });
+
+    }else{
+     // cardStatus[cardStatus.index].status = false;
+     console.log('insdie else');
+
+     let previousValue = c[this.state.lastSelected].value;
+     if(previousValue !==  c[index].value){
+      c[index].status = false;
+      c[this.state.lastSelected].status = false;
+
+      this.setState({
+        cardStatus: c
+      });
+     }
+     
+    }
+
     this.setState({
       step: this.state.step + 1,
     });
+    
   };
 
   render() {
     {
       this.start;
-    ;}
+    }
     return (
       <View>
         <View style={[styles.header]}>
