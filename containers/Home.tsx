@@ -29,7 +29,7 @@ export class Home extends Component {
     this.start();
   }
 
-  shuffleArray = (array) => {
+  shuffleArray = array => {
     let i = array.length - 1;
     for (; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -44,7 +44,7 @@ export class Home extends Component {
     const min = 1;
     const max = 100;
     let tempList = [];
-    for  (i = 0; i < 6; i++) {
+    for (i = 0; i < 6; i++) {
       const rand = min + Math.random() * (max - min);
       tempList.push(parseInt(rand, 10));
     }
@@ -71,8 +71,8 @@ export class Home extends Component {
     });
 
     this.setState({
-      step: 0
-    })
+      step: 0,
+    });
 
     console.log(details);
     console.log(this.state.cardStatus);
@@ -98,42 +98,42 @@ export class Home extends Component {
 
   //Logic
 
-  handleClick = (index : number) => {
+  handleClick = (index: number) => {
     console.log('handleClick');
 
     let c = this.state.cardStatus;
+    if (c[index].status) {
+      return;
+    }
     c[index].status = true;
     this.setState({
       cardStatus: c,
     });
 
-    if ((this.state.step + 1) % 2 !== 0){
+    if ((this.state.step + 1) % 2 !== 0) {
       console.log('inside if');
-  
-      this.setState({
-        lastSelected : index,
-      });
-
-    }else{
-     // cardStatus[cardStatus.index].status = false;
-     console.log('insdie else');
-
-     let previousValue = c[this.state.lastSelected].value;
-     if(previousValue !==  c[index].value){
-      c[index].status = false;
-      c[this.state.lastSelected].status = false;
 
       this.setState({
-        cardStatus: c
+        lastSelected: index,
       });
-     }
-     
+    } else {
+      // cardStatus[cardStatus.index].status = false;
+      console.log('insdie else');
+
+      let previousValue = c[this.state.lastSelected].value;
+      if (previousValue !== c[index].value) {
+        c[index].status = false;
+        c[this.state.lastSelected].status = false;
+
+        this.setState({
+          cardStatus: c,
+        });
+      }
     }
 
     this.setState({
       step: this.state.step + 1,
     });
-    
   };
 
   render() {

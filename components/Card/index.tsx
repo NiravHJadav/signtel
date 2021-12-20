@@ -1,10 +1,8 @@
-import React, {Component, PureComponent} from 'react';
+import React, {Component} from 'react';
 import {
   StyleSheet,
-  Image,
   TouchableOpacity,
   Text,
-  Alert,
   ImageBackground,
   View,
 } from 'react-native';
@@ -24,14 +22,10 @@ export default class FlipCard extends Component {
     if (this.props.cardStatus?.status) {
       return this.props.cardStatus?.value;
     }
-    return '';
+    return '?';
   };
 
-  // componentWillReceiveProps(nextProps) {
-  //   this.setState({ cardStatus: nextProps.cardStatus });
-  // }
-
-  onPress() {
+onPress() {
     this.props.handler(this.props.cardStatus.index);
   }
   render() {
@@ -97,7 +91,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-    fontSize: 15,
+    fontSize: 20,
     lineHeight: 84,
     fontWeight: 'bold',
     textAlign: 'center',
