@@ -1,4 +1,4 @@
-import React, {Component, PureComponent, useState} from 'react';
+import React, {Component} from 'react';
 import {
   Button,
   FlatList,
@@ -70,6 +70,10 @@ export class Home extends Component {
       cardStatus: details,
     });
 
+    this.setState({
+      step: 0
+    })
+
     console.log(details);
     console.log(this.state.cardStatus);
   };
@@ -140,7 +144,7 @@ export class Home extends Component {
       <View>
         <View style={[styles.header]}>
           <Text style={styles.sectionTitle}> Steps : {this.state.step}</Text>
-          <Button onPress={this.start} title="Start" color="#841584" />
+          <Button onPress={this.start} title="Re-Start" color="#841584" />
         </View>
         <SafeAreaView>
           <View>

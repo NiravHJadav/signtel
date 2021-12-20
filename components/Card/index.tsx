@@ -1,10 +1,13 @@
-import React, { Component, PureComponent } from "react";
-import { StyleSheet, Image, TouchableOpacity, Text, Alert } from "react-native";
-import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
-
-
-
-
+import React, {Component, PureComponent} from 'react';
+import {
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Text,
+  Alert,
+  ImageBackground,
+  View,
+} from 'react-native';
 export default class FlipCard extends Component {
   constructor(props: any) {
     super(props);
@@ -21,13 +24,12 @@ export default class FlipCard extends Component {
     if (this.props.cardStatus?.status) {
       return this.props.cardStatus?.value;
     }
-    return '0';
+    return '';
   };
 
   // componentWillReceiveProps(nextProps) {
   //   this.setState({ cardStatus: nextProps.cardStatus });
   // }
-
 
   onPress() {
     this.props.handler(this.props.cardStatus.index);
@@ -35,20 +37,22 @@ export default class FlipCard extends Component {
   render() {
     //console.log("enter" + this.props.cardStatus?.index);
     return (
-
-      <TouchableOpacity style={styles.container} onPress={() => this.onPress()} style={{}}>
-        <Card style={styles.card_template} containerStyle={{ padding: 0 }} >
-          <CardImage
-            style={styles.card_image}
-            source={{ uri: this.blueImage }}
-            title={this.getTitle()}
-          />
-        </Card>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={() => this.onPress()}
+        style={{}}>
+        <View style={styles.container}>
+          <ImageBackground
+            source={this.blueImage}
+            resizeMode="cover"
+            style={styles.image}>
+            <Text style={styles.text}>{this.getTitle()}</Text>
+          </ImageBackground>
+        </View>
       </TouchableOpacity>
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -56,11 +60,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'blue',
+    padding: 10,
+    margin: 5,
   },
   card_template: {
     width: 125,
     height: 160,
-    boxShadow: "10px 10px 10px -12px rgba(0,0,0,0.75)",
+    boxShadow: '10px 10px 10px -12px rgba(0,0,0,0.75)',
   },
   card_image: {
     width: 125,
@@ -68,7 +74,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   text_container: {
-    position: "absolute",
+    position: 'absolute',
     width: 250,
     height: 30,
     bottom: 0,
@@ -78,6 +84,23 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 10,
   },
   card_title: {
-    color: "white",
+    color: 'white',
+  },
+
+  image: {
+    flex: 1,
+    justifyContent: 'center',
+    width: 90,
+    height: 130,
+    borderRadius: 1,
+    margin: 5,
+  },
+  text: {
+    color: 'white',
+    fontSize: 15,
+    lineHeight: 84,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    //backgroundColor: "#000000c0"
   },
 });
